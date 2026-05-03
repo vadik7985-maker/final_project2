@@ -122,3 +122,6 @@ STATIC_URL = 'static/'
 LOGIN_URL = '/auth/login/'           
 LOGIN_REDIRECT_URL = '/'        
 LOGOUT_REDIRECT_URL = '/' 
+
+# Кастомная модель пользователя
+AUTH_USER_MODEL = 'users.CustomUser'
