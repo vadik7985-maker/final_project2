@@ -26,3 +26,13 @@ class FortuneCookie(models.Model):
         blank=True,
         verbose_name="Создано пользователем"
     )
+    is_active = models.BooleanField(default=True, verbose_name="Активно")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    usage_count = models.PositiveIntegerField(default=0, verbose_name="Количество использований")
+
+    def __str__(self):
+        return self.text[:50] + "..." if len(self.text) > 50 else self.text
+
+    class Meta:
+        verbose_name = "Печенье с предсказанием"
+        verbose_name_plural = "Печеньки с предсказаниями"
