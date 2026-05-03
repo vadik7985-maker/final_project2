@@ -4,4 +4,4 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     pass
-#проверка
+#проверка номер 2
