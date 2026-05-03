@@ -10,3 +10,19 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
+class FortuneCookie(models.Model):
+    text = models.TextField(verbose_name="Текст предсказания")
+    category = models.ForeignKey(
+        'Category',
+        on_delete=models.CASCADE,
+        related_name='cookies',
+        verbose_name="Категория"
+    )
+    created_by = models.ForeignKey(
+        'users.CustomUser',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Создано пользователем"
+    )
