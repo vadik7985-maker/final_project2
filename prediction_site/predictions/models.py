@@ -1,4 +1,6 @@
 from django.db import models
+from users.models import CustomUser
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
@@ -36,3 +38,26 @@ class FortuneCookie(models.Model):
     class Meta:
         verbose_name = "Печенье с предсказанием"
         verbose_name_plural = "Печеньки с предсказаниями"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь"
+    )
+    bio = models.TextField(blank=True, verbose_name="О себе")
+    favorite_category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Любимая категория"
+    )
+    birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
+
+    def __str__(self):
+        return f"Профиль {self.user.username}"
+
+    class Meta:
+        verbose_name = "Профиль пользователя"
+        verbose_name_plural = "Профили пользователей"
