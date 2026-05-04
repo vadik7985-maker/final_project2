@@ -61,3 +61,22 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = "Профиль пользователя"
         verbose_name_plural = "Профили пользователей"
+
+class UserPrediction(models.Model):
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь"
+    )
+    cookie = models.ForeignKey(
+        FortuneCookie,
+        on_delete=models.CASCADE,
+        verbose_name="Предсказание"
+    )
+    received_at = models.DateTimeField(auto_now_add=True, verbose_name="Получено")
+    is_favorite = models.BooleanField(default=False, verbose_name="В избранном")
+
+    class Meta:
+        unique_together = ['user', 'cookie']
+        verbose_name = "Полученное предсказание"
+        verbose_name_plural = "Полученные предсказания"
