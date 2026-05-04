@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+    <h2>Вы вышли из аккаунта</h2>
+    
+    <p>Вы успешно завершили сеанс.</p>
+    
+    <p>
+        <a href="{% url 'login' %}">Войти снова</a>
+    </p>
+{% endblock %}
