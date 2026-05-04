@@ -17,6 +17,7 @@
                 <div class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                         <span class="nav-link">Привет, {{ user.username }}!</span>
+                        <a class="nav-link" href="{% url 'password_change' %}">Сменить пароль</a>
                         <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
                     {% else %}
                         <a class="nav-link" href="{% url 'login' %}">Войти</a>
