@@ -13,4 +13,4 @@ def home(request):
         'categories_count': categories_count,
     }
 
-    return render(request, 'predictions/home.html', context)
+    return render(request, 'home.html', context)
