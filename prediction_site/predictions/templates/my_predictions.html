@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои предсказания{% endblock %}
+
+{% block content %}
+<div class="my-predictions">
+    <h2>Мои предсказания</h2>
+    
+    {% if predictions_list %}
+        <p>Всего предсказаний: {{ total_count }}</p>
+        
+        <div class="predictions-list">
+            {% for prediction in predictions_list %}
+                <div class="prediction-item">
+                    <div class="prediction-text">
+                        {{ prediction.cookie.text|truncatechars:100 }}
+                    </div>
+                    <div class="prediction-meta">
+                        <span class="date">Получено: {{ prediction.received_at|date:"d.m.Y H:i" }}</span>
+                        <span class="category">Категория: {{ prediction.cookie.category.name }}</span>
+                        <a href="{% url 'prediction_result' prediction.id %}" class="btn-view">
+                            Посмотреть
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>У вас пока нет предсказаний.</p>
+        <a href="{% url 'get_prediction' %}" class="btn btn-primary">
+            Получить первое предсказание
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
