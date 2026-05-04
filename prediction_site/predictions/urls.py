@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),           # главная страница
-    # остальные пути позже
+    path('', views.home, name='home'),          
+    path('get/', views.get_prediction, name='get_prediction'),
 ]
