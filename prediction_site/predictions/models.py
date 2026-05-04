@@ -1,5 +1,4 @@
 from django.db import models
-from users.models import CustomUser
 
 
 class Category(models.Model):
@@ -12,6 +11,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
 
 class FortuneCookie(models.Model):
     text = models.TextField(verbose_name="Текст предсказания")
@@ -39,9 +39,10 @@ class FortuneCookie(models.Model):
         verbose_name = "Печенье с предсказанием"
         verbose_name_plural = "Печеньки с предсказаниями"
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        CustomUser,
+        'users.CustomUser',
         on_delete=models.CASCADE,
         verbose_name="Пользователь"
     )
@@ -64,7 +65,7 @@ class UserProfile(models.Model):
 
 class UserPrediction(models.Model):
     user = models.ForeignKey(
-        CustomUser,
+        'users.CustomUser',
         on_delete=models.CASCADE,
         verbose_name="Пользователь"
     )
@@ -81,9 +82,14 @@ class UserPrediction(models.Model):
         verbose_name = "Полученное предсказание"
         verbose_name_plural = "Полученные предсказания"
 
+    def __str__(self):
+        return f"{self.user.username} - {self.cookie.text[:30]}..."
+
+
+
 class FavoriteCookie(models.Model):
     user = models.ForeignKey(
-        CustomUser,
+        'users.CustomUser',
         on_delete=models.CASCADE,
         verbose_name="Пользователь"
     )
@@ -98,3 +104,6 @@ class FavoriteCookie(models.Model):
         unique_together = ['user', 'cookie']
         verbose_name = "Избранное предсказание"
         verbose_name_plural = "Избранные предсказания"
+
+    def __str__(self):
+        return f"Избранное: {self.user.username} - {self.cookie.text[:30]}..."
