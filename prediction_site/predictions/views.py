@@ -54,3 +54,17 @@ def prediction_result(request, prediction_id):
     }
     
     return render(request, 'result.html', context)
+
+
+@login_required
+def my_predictions(request):
+    predictions_list = UserPrediction.objects.filter(
+        user=request.user
+    ).order_by('-received_at') 
+    
+    context = {
+        'predictions_list': predictions_list,
+        'total_count': predictions_list.count(),
+    }
+    
+    return render(request, 'my_predictions.html', context)
