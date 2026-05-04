@@ -125,3 +125,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Кастомная модель пользователя
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# К сбросу пароля
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
