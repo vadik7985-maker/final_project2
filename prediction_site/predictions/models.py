@@ -80,3 +80,21 @@ class UserPrediction(models.Model):
         unique_together = ['user', 'cookie']
         verbose_name = "Полученное предсказание"
         verbose_name_plural = "Полученные предсказания"
+
+class FavoriteCookie(models.Model):
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь"
+    )
+    cookie = models.ForeignKey(
+        FortuneCookie,
+        on_delete=models.CASCADE,
+        verbose_name="Предсказание"
+    )
+    added_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+
+    class Meta:
+        unique_together = ['user', 'cookie']
+        verbose_name = "Избранное предсказание"
+        verbose_name_plural = "Избранные предсказания"
