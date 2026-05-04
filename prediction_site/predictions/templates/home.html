@@ -3,63 +3,61 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="text-center mb-5">
-        <h1>Предсказания на печеньках</h1>
-        <p class="lead">Узнайте свою судьбу с помощью волшебных печений</p>
-        
-        {% if user.is_authenticated %}
-            <a href="{% url 'get_prediction' %}" class="btn btn-success btn-lg mt-3">
-                Получить предсказание
-            </a>
-        {% else %}
-            <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-3">
-                Войдите, чтобы получить предсказание
-            </a>
-        {% endif %}
-    </div>
+<div class="text-center mb-5">
+    <h1>Предсказания на печеньках</h1>
+    <p class="lead">Узнайте свою судьбу с помощью волшебных печений</p>
+    
+    {% if user.is_authenticated %}
+        <a href="{% url 'get_prediction' %}" class="btn btn-success btn-lg mt-3">
+            Получить предсказание
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-3">
+            Войдите, чтобы получить предсказание
+        </a>
+    {% endif %}
+</div>
 
-    <div class="row mb-5">
-        <div class="col-md-6 mx-auto">
-            <div class="card text-center">
+<div class="row mb-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="card-title">Статистика</h3>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <h4>{{ cookies_count }}</h4>
+                        <p class="text-muted">предсказаний</p>
+                    </div>
+                    <div class="col-6">
+                        <h4>{{ categories_count }}</h4>
+                        <p class="text-muted">категорий</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Категории предсказаний</h2>
+    </div>
+    
+    {% for category in categories %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h3 class="card-title">Статистика</h3>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <h4>{{ cookies_count }}</h4>
-                            <p class="text-muted">предсказаний</p>
-                        </div>
-                        <div class="col-6">
-                            <h4>{{ categories_count }}</h4>
-                            <p class="text-muted">категорий</p>
-                        </div>
-                    </div>
+                    <h5 class="card-title">{{ category.name }}</h5>
+                    {% if category.description %}
+                        <p class="card-text">{{ category.description|truncatechars:100 }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
+    {% empty %}
         <div class="col-12">
-            <h2 class="text-center mb-4">Категории предсказаний</h2>
+            <p class="text-center">Категории пока не добавлены</p>
         </div>
-        
-        {% for category in categories %}
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ category.name }}</h5>
-                        {% if category.description %}
-                            <p class="card-text">{{ category.description|truncatechars:100 }}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% empty %}
-            <div class="col-12">
-                <p class="text-center">Категории пока не добавлены</p>
-            </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

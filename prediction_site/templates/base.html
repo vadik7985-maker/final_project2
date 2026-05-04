@@ -12,7 +12,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
-                <a class="navbar-brand" href="#">Печеньки с предсказаниями</a>
+                <a class="navbar-brand" href="{% url 'home' %}">Печеньки с предсказаниями</a>
 
                 <div class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
