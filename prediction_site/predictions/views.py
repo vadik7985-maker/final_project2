@@ -38,3 +38,19 @@ def get_prediction(request):
     )
     
     return redirect('prediction_result', prediction_id=user_prediction.id)
+
+
+@login_required
+def prediction_result(request, prediction_id):
+    user_prediction = get_object_or_404(
+        UserPrediction, 
+        id=prediction_id, 
+        user=request.user
+    )
+    
+    context = {
+        'prediction': user_prediction,
+        'cookie': user_prediction.cookie,
+    }
+    
+    return render(request, 'result.html', context)
