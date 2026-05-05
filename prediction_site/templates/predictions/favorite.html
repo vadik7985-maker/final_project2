@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Избранное{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Моё избранное</h2>
+        
+        {% if favorite_list %}
+            <div class="row">
+                {% for item in favorite_list %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ item.cookie.category.name }}</span>
+                            <p class="card-text prediction-text">
+                                "{{ item.cookie.text }}"
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <small class="text-muted">
+                                Добавлено: {{ item.added_at|date:"d.m.Y H:i" }}
+                            </small>
+                            <a href="{% url 'remove_from_favorites' item.cookie.id %}" 
+                               class="btn btn-sm btn-outline-danger float-end"
+                               onclick="return confirm('Удалить из избранного?')">
+                                Удалить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <h5>В избранном пока ничего нет</h5>
+                <p>Получайте предсказания и добавляйте понравившиеся в избранное</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Получить предсказание</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
