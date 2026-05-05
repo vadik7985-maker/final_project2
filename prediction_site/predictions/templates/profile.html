@@ -6,20 +6,44 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <h2 class="mb-0">Личный кабинет</h2>
+                <a href="{% url 'edit_profile' %}" class="btn btn-light btn-sm">
+                    Редактировать профиль
+                </a>
             </div>
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-md-6">
+                    <!-- Аватарка -->
+                    <div class="col-md-4 text-center">
+                        {% if user_profile.avatar %}
+                            <img src="{{ user_profile.avatar.url }}" alt="Аватар"
+                                 class="img-fluid rounded-circle mb-3"
+                                 style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #007bff;">
+                        {% else %}
+                            <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                 style="width: 150px; height: 150px;">
+                                <span class="display-1 text-white">👤</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Основная информация -->
+                    <div class="col-md-8">
                         <h4>Основная информация</h4>
                         <hr>
                         <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
                         <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
                         <p><strong>Имя:</strong> {{ user.first_name|default:"Не указано" }}</p>
                         <p><strong>Фамилия:</strong> {{ user.last_name|default:"Не указана" }}</p>
+                        {% if user_profile.birth_date %}
+                            <p><strong>Дата рождения:</strong> {{ user_profile.birth_date|date:"d.m.Y" }}</p>
+                        {% endif %}
                         <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y H:i" }}</p>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <h4>Статистика</h4>
                         <hr>
@@ -27,21 +51,18 @@
                         <p><strong>В избранном:</strong> {{ favorites_count }}</p>
                         <p><strong>Всего предсказаний на сайте:</strong> {{ total_cookies }}</p>
                     </div>
+                    <div class="col-md-6">
+                        <h4>Любимая категория</h4>
+                        <hr>
+                        <p>{{ user_profile.favorite_category.name|default:"Не выбрана" }}</p>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        <h4>Биография</h4>
+                        <h4>О себе</h4>
                         <hr>
                         <p>{{ user_profile.bio|default:"Биография пока не заполнена" }}</p>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <h4>Любимая категория</h4>
-                        <hr>
-                        <p>{{ user_profile.favorite_category.name|default:"Не выбрана" }}</p>
                     </div>
                 </div>
 

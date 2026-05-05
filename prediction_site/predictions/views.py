@@ -152,4 +152,4 @@ def edit_profile(request):
         'form': form,
         'user_profile': user_profile,
     }
-    return render(request, 'predictions/edit_profile.html', context)
+    return render(request, 'edit_profile.html', context)
