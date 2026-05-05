@@ -10,4 +10,6 @@ urlpatterns = [
     path('favorites/', views.favorites, name='favorites'),
     path('favorites/add/<int:cookie_id>/', views.add_to_favorites, name='add_to_favorites'),
     path('favorites/remove/<int:cookie_id>/', views.remove_from_favorites, name='remove_from_favorites'),
+
+    path('profile/', views.profile, name='profile'),
 ]
