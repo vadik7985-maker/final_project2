@@ -7,7 +7,7 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Личный кабинет</h2>
+                <h2 class="mb-0">👤 Личный кабинет</h2>
                 <a href="{% url 'edit_profile' %}" class="btn btn-light btn-sm">
                     Редактировать профиль
                 </a>
@@ -56,7 +56,28 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- БЛОК ДОСТИЖЕНИЙ -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h4>🏆 Мои достижения</h4>
+                        <hr>
+                        {% if user_achievements %}
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for ua in user_achievements %}
+                                    <div class="border rounded p-2 text-center" style="min-width: 100px;"
+                                         data-bs-toggle="tooltip" title="{{ ua.achievement.description }}">
+                                        <div style="font-size: 2rem;">{{ ua.achievement.icon }}</div>
+                                        <small>{{ ua.achievement.name }}</small>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Пока нет достижений. Получайте предсказания, чтобы открывать их!</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
                     <div class="col-12">
                         <h4>О себе</h4>
                         <hr>
