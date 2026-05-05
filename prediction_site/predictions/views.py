@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, UserProfile
 import random
+from .forms import UserProfileForm
 
 
 def home(request):
@@ -132,3 +133,23 @@ def profile(request):
         'total_cookies': FortuneCookie.objects.count(),
     }
     return render(request, 'profile.html', context)
+
+
+@login_required
+def edit_profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Профиль успешно обновлён!')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    context = {
+        'form': form,
+        'user_profile': user_profile,
+    }
+    return render(request, 'predictions/edit_profile.html', context)

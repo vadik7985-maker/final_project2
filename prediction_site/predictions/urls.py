@@ -12,4 +12,5 @@ urlpatterns = [
     path('favorites/remove/<int:cookie_id>/', views.remove_from_favorites, name='remove_from_favorites'),
 
     path('profile/', views.profile, name='profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]
