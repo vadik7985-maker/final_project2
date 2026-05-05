@@ -110,3 +110,41 @@ class FavoriteCookie(models.Model):
 
     def __str__(self):
         return f"Избранное: {self.user.username} - {self.cookie.text[:30]}..."
+
+
+class Achievement(models.Model):
+    """Достижение, которое может получить пользователь"""
+    name = models.CharField(max_length=100, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    icon = models.CharField(max_length=50, default='🏆', verbose_name="Иконка")
+
+    # Условия получения
+    required_predictions = models.PositiveIntegerField(default=0, verbose_name="Требуется предсказаний")
+    required_favorites = models.PositiveIntegerField(default=0, verbose_name="Требуется в избранном")
+    required_category_count = models.PositiveIntegerField(default=0, verbose_name="Требуется уникальных категорий")
+
+    order = models.PositiveIntegerField(default=0, verbose_name="Порядок")
+    is_active = models.BooleanField(default=True, verbose_name="Активно")
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Достижение"
+        verbose_name_plural = "Достижения"
+
+    def __str__(self):
+        return f"{self.icon} {self.name}"
+
+
+class UserAchievement(models.Model):
+    """Связь пользователя с полученными достижениями"""
+    user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, verbose_name="Пользователь")
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, verbose_name="Достижение")
+    earned_at = models.DateTimeField(auto_now_add=True, verbose_name="Получено")
+
+    class Meta:
+        unique_together = ['user', 'achievement']
+        verbose_name = "Достижение пользователя"
+        verbose_name_plural = "Достижения пользователей"
+
+    def __str__(self):
+        return f"{self.user.username} - {self.achievement.name}"
