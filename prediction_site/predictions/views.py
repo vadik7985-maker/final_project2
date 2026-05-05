@@ -23,21 +23,27 @@ def home(request):
 @login_required
 def get_prediction(request):
     active_cookies = FortuneCookie.objects.filter(is_active=True)
-    
+
     if not active_cookies.exists():
         messages.warning(request, 'К сожалению, активных предсказаний пока нет. Загляните позже!')
         return redirect('home')
-    
+
     cookie = random.choice(active_cookies)
-    
+
     cookie.usage_count += 1
     cookie.save()
-    
+
     user_prediction = UserPrediction.objects.create(
         user=request.user,
         cookie=cookie
     )
-    
+
+    # Проверяем и выдаём достижения
+    new_achievements = check_and_award_achievements(request.user)
+    if new_achievements:
+        for ach in new_achievements:
+            messages.success(request, f'Получено достижение: {ach.icon} {ach.name}!')
+
     return redirect('prediction_result', prediction_id=user_prediction.id)
 
 
