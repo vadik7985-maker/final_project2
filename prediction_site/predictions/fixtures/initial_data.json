@@ -1,0 +1,326 @@
+[
+  {
+    "model": "predictions.category",
+    "pk": 1,
+    "fields": {
+      "name": "Любовь",
+      "description": "Предсказания о любви, отношениях и романтике"
+    }
+  },
+  {
+    "model": "predictions.category",
+    "pk": 2,
+    "fields": {
+      "name": "Карьера",
+      "description": "Предсказания о работе, успехе и профессиональном росте"
+    }
+  },
+  {
+    "model": "predictions.category",
+    "pk": 3,
+    "fields": {
+      "name": "Здоровье",
+      "description": "Предсказания о здоровье, энергии и благополучии"
+    }
+  },
+  {
+    "model": "predictions.category",
+    "pk": 4,
+    "fields": {
+      "name": "Путешествия",
+      "description": "Предсказания о путешествиях, приключениях и новых открытиях"
+    }
+  },
+  {
+    "model": "predictions.category",
+    "pk": 5,
+    "fields": {
+      "name": "Финансы",
+      "description": "Предсказания о деньгах, удаче и материальном благополучии"
+    }
+  },
+  {
+    "model": "predictions.category",
+    "pk": 6,
+    "fields": {
+      "name": "Удача",
+      "description": "Предсказания о случайных везениях и приятных сюрпризах"
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 1,
+    "fields": {
+      "text": "Сегодня ты встретишь человека, который изменит твою жизнь",
+      "category": 1,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 2,
+    "fields": {
+      "text": "Твоя любовь ближе, чем ты думаешь. Оглянись вокруг",
+      "category": 1,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 3,
+    "fields": {
+      "text": "Скоро твоё сердце забьётся чаще - жди приятную встречу",
+      "category": 1,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 4,
+    "fields": {
+      "text": "Открой своё сердце для новых чувств",
+      "category": 1,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 5,
+    "fields": {
+      "text": "На этой неделе тебя ждёт неожиданное повышение",
+      "category": 2,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 6,
+    "fields": {
+      "text": "Твой труд будет вознаграждён. Не сдавайся",
+      "category": 2,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 7,
+    "fields": {
+      "text": "Новые возможности откроются перед тобой на этой неделе",
+      "category": 2,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 8,
+    "fields": {
+      "text": "Успех придёт к тем, кто не боится рисковать",
+      "category": 2,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 9,
+    "fields": {
+      "text": "Удели время своему здоровью — это лучшая инвестиция",
+      "category": 3,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 10,
+    "fields": {
+      "text": "Прогулка на свежем воздухе придаст тебе сил и энергии",
+      "category": 3,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 11,
+    "fields": {
+      "text": "Здоровый сон — залог продуктивного дня",
+      "category": 3,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 12,
+    "fields": {
+      "text": "Твой организм просит витаминов. Добавь в рацион фрукты",
+      "category": 3,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 13,
+    "fields": {
+      "text": "Скоро тебя ждёт удивительное путешествие",
+      "category": 4,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 14,
+    "fields": {
+      "text": "Новые горизонты открываются перед тобой. Дерзай",
+      "category": 4,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 15,
+    "fields": {
+      "text": "Твоё следующее приключение будет незабываемым",
+      "category": 4,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 16,
+    "fields": {
+      "text": "Не бойся менять планы — это приведёт к неожиданным открытиям",
+      "category": 4,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 17,
+    "fields": {
+      "text": "Твои доходы скоро вырастут",
+      "category": 5,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 18,
+    "fields": {
+      "text": "Удачный день для крупных покупок и инвестиций",
+      "category": 5,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 19,
+    "fields": {
+      "text": "Бережливость сегодня поможет сэкономить",
+      "category": 5,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 20,
+    "fields": {
+      "text": "Звёзды говорят, что сегодня твой день удачи",
+      "category": 6,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 21,
+    "fields": {
+      "text": "Неожиданный подарок ждёт тебя в ближайшее время",
+      "category": 6,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 22,
+    "fields": {
+      "text": "Сегодня все твои начинания будут удачными",
+      "category": 6,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  },
+  {
+    "model": "predictions.fortunecookie",
+    "pk": 23,
+    "fields": {
+      "text": "Твоя улыбка сегодня принесёт радость окружающим",
+      "category": 6,
+      "created_by": null,
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z",
+      "usage_count": 0
+    }
+  }
+]
