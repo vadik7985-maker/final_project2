@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, UserProfile
+from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, UserProfile, Achievement, UserAchievement
 import random
 from .forms import UserProfileForm
 
@@ -161,3 +161,38 @@ def top_cookies(request):
         'top_cookies': top_list,
     }
     return render(request, 'top_cookies.html', context)
+
+
+def check_and_award_achievements(user):
+    """Проверяет и выдает достижения пользователю"""
+    predictions_count = UserPrediction.objects.filter(user=user).count()
+    favorites_count = FavoriteCookie.objects.filter(user=user).count()
+
+    # Получаем количество уникальных категорий в предсказаниях пользователя
+    unique_categories = UserPrediction.objects.filter(
+        user=user
+    ).values_list('cookie__category', flat=True).distinct().count()
+
+    # Все активные достижения
+    achievements = Achievement.objects.filter(is_active=True)
+
+    awarded = []
+    for ach in achievements:
+        # Проверяем, не получил ли уже пользователь это достижение
+        if UserAchievement.objects.filter(user=user, achievement=ach).exists():
+            continue
+
+        # Проверяем условия
+        conditions_met = True
+        if ach.required_predictions > 0 and predictions_count < ach.required_predictions:
+            conditions_met = False
+        if ach.required_favorites > 0 and favorites_count < ach.required_favorites:
+            conditions_met = False
+        if ach.required_category_count > 0 and unique_categories < ach.required_category_count:
+            conditions_met = False
+
+        if conditions_met:
+            UserAchievement.objects.create(user=user, achievement=ach)
+            awarded.append(ach)
+
+    return awarded
