@@ -28,7 +28,20 @@ def get_prediction(request):
         messages.warning(request, 'К сожалению, активных предсказаний пока нет. Загляните позже!')
         return redirect('home')
 
-    cookie = random.choice(active_cookies)
+    # Получаем ID предсказаний, которые пользователь уже получал
+    received_cookies_ids = UserPrediction.objects.filter(
+        user=request.user
+    ).values_list('cookie_id', flat=True)
+
+    # Исключаем их из выбора
+    available_cookies = active_cookies.exclude(id__in=received_cookies_ids)
+
+    # Если все предсказания уже получены
+    if not available_cookies.exists():
+        messages.warning(request, 'Вы уже получили все возможные предсказания! 🎉')
+        return redirect('my_predictions')
+
+    cookie = random.choice(available_cookies)
 
     cookie.usage_count += 1
     cookie.save()
