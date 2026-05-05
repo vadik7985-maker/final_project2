@@ -63,16 +63,69 @@
         /* ТАБЛИЦЫ */
         .table {
             color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
+        /* заголовок */
         .table thead {
             background: rgba(0, 0, 0, 0.4);
         }
 
+        /* строки */
+        .table tbody tr {
+            background: transparent;
+            color: #f5e6ff;
+        }
+
+        /* hover эффект */
         .table-hover tbody tr:hover {
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* INPUT ПОЛЯ */
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #cc66ff;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff99dd;
+            box-shadow: 0 0 8px rgba(255, 153, 221, 0.6);
+        }
+
+        /* СТИЛИ ДЛЯ ЛОГИНА */
+        label {
+            color: #f5e6ff;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* ССЫЛКА ЗАБЫЛИ ПАРОЛЬ */
+        a {
+            color: #ff99dd;
+        }
+
+        a:hover {
+            color: #ffccee;
+        }
+        /* АНИМАЦИЯ */
+        .card {
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
         /* БЕЙДЖИ */
         .badge {
             font-size: 0.8rem;
@@ -97,11 +150,80 @@
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(255, 102, 204, 0.6);
         }
+
         .prediction-text {
             font-size: 1.3rem;
             line-height: 1.6;
             color: #ffe6ff;
         }
+
+        body, p, span, div, small, strong, h1, h2, h3, h4, h5 {
+            color: #f5e6ff;
+        }
+
+        .text-muted {
+            color: #d8b3ff !important;
+        }
+
+        .btn-outline-primary,
+        .btn-outline-danger,
+        .btn-outline-secondary,
+        .btn-outline-warning {
+            color: #ff99dd;
+            border: 1px solid #ff99dd;
+            background: transparent;
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-danger:hover,
+        .btn-outline-secondary:hover,
+        .btn-outline-warning:hover {
+            background: #ff99dd;
+            color: #2a003f;
+        }
+
+        .card,
+        .card p,
+        .card span,
+        .card small {
+            color: #f5e6ff !important;
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-danger:hover {
+            box-shadow: 0 0 10px rgba(255, 153, 221, 0.7);
+        }
+
+        /* бейджи в таблице, категории */
+        .badge.bg-primary {
+            background: linear-gradient(90deg, #ff66cc, #cc66ff) !important;
+        }
+        /* бейджи в таблице, использования */
+        .badge.bg-success {
+            background: rgba(255, 153, 221, 0.2) !important;
+            color: #ffccff !important;
+            border: 1px solid #ff99dd;
+        }
+        /* выделение для топ3 */
+        td:first-child {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        /* кнопка избранное в таблице с топом */
+        .btn-outline-danger {
+            color: #ff99dd !important;
+            border-color: #ff99dd !important;
+        }
+
+        .btn-outline-danger:hover {
+            background: #ff99dd !important;
+            color: #2a003f !important;
+        }
+        /* вместо серых полос */
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: transparent !important;
+        }
+
     </style>
 </head>
 <body>

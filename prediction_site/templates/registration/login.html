@@ -3,19 +3,43 @@
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-    <h2>Вход в аккаунт</h2>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-lg p-4">
 
-    {% if form.errors %}
-        <p style="color: red;">Неверное имя пользователя или пароль</p>
-    {% endif %}
+            <h2 class="text-center mb-4">Вход в аккаунт</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Войти</button>
-    </form>
+            {% if form.errors %}
+                <div class="alert alert-danger text-center">
+                    Неверное имя пользователя или пароль
+                </div>
+            {% endif %}
 
-    <p>
-        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
-    </p>
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_username">Имя пользователя</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_password">Пароль</label>
+                    {{ form.password }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">
+                    Войти
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'password_reset' %}">
+                    Забыли пароль?
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}
