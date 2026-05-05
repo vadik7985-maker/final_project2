@@ -95,6 +95,12 @@
 
         .btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 102, 204, 0.6);
+        }
+        .prediction-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #ffe6ff;
         }
     </style>
 </head>
@@ -102,7 +108,7 @@
     <div class="container mt-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
-               <a> class="navbar-brand fw-bold" href="{% url 'home' %}">
+               <a class="navbar-brand fw-bold" href="{% url 'home' %}">
                     🔮 Печеньки с предсказаниями
                </a>
                 <div class="navbar-nav ms-auto">
