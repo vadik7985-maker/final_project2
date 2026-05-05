@@ -1,0 +1,19 @@
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: daryaovchinnikova000@gmail.com
+Date: Tue, 05 May 2026 16:58:41 +0000
+Message-ID: <177800032145.5584.12394647732992843197@diedari>
+
+Hello,
+
+You requested a password reset.
+
+Use the link below:
+http://127.0.0.1:8000/auth/reset/Mw/d84fht-55fa6035a0589c1bcaf8425b04dc6930/
+
+If you did not request this, ignore this message.
+
+-------------------------------------------------------------------------------

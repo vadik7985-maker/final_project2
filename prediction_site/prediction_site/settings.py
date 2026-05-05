@@ -128,6 +128,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # К сбросу пароля
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+DEFAULT_CHARSET = 'utf-8'
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 # аватарки
