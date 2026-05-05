@@ -132,11 +132,14 @@ def profile(request):
     predictions_count = UserPrediction.objects.filter(user=request.user).count()
     favorites_count = FavoriteCookie.objects.filter(user=request.user).count()
 
+    user_achievements = UserAchievement.objects.filter(user=request.user).select_related('achievement')
+
     context = {
         'user_profile': user_profile,
         'predictions_count': predictions_count,
         'favorites_count': favorites_count,
         'total_cookies': FortuneCookie.objects.count(),
+        'user_achievements': user_achievements,
     }
     return render(request, 'profile.html', context)
 
