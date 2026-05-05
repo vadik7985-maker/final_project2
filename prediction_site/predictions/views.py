@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie
+from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, UserProfile
 import random
 
 
@@ -118,3 +118,19 @@ def favorites(request):
         'favorite_list': favorite_list,
     }
     return render(request, 'predictions/favorites.html', context)
+
+
+@login_required
+def profile(request):
+    # Получаем профиль пользователя (если он создан)
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    predictions_count = UserPrediction.objects.filter(user=request.user).count()
+    favorites_count = FavoriteCookie.objects.filter(user=request.user).count()
+
+    context = {
+        'user_profile': user_profile,
+        'predictions_count': predictions_count,
+        'favorites_count': favorites_count,
+    }
+    return render(request, 'predictions/profile.html', context)
