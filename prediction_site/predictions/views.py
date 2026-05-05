@@ -122,7 +122,6 @@ def favorites(request):
 
 @login_required
 def profile(request):
-    # Получаем профиль пользователя (если он создан)
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     predictions_count = UserPrediction.objects.filter(user=request.user).count()
@@ -132,5 +131,6 @@ def profile(request):
         'user_profile': user_profile,
         'predictions_count': predictions_count,
         'favorites_count': favorites_count,
+        'total_cookies': FortuneCookie.objects.count(),
     }
     return render(request, 'predictions/profile.html', context)
