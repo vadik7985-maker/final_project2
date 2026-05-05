@@ -106,3 +106,15 @@ def favorites(request):
         'favorite_cookies': favorite_cookies,
     }
     return render(request, 'predictions/favorites.html', context)
+
+
+@login_required
+def favorites(request):
+    favorite_list = FavoriteCookie.objects.filter(
+        user=request.user
+    ).select_related('cookie', 'cookie__category').order_by('-added_at')
+
+    context = {
+        'favorite_list': favorite_list,
+    }
+    return render(request, 'predictions/favorites.html', context)
