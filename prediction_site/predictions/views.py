@@ -115,7 +115,7 @@ def favorites(request):
     context = {
         'favorite_list': favorite_list,
     }
-    return render(request, 'favorites.html', context)
+    return render(request, 'favorite.html', context)
 
 
 @login_required

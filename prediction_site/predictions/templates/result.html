@@ -22,10 +22,17 @@
                         Получить ещё одно предсказание
                     </a>
 
-                    <a href="{% url 'add_to_favorites' cookie.id %}?prediction_id={{ prediction.id }}" 
-                       class="btn btn-outline-danger btn-lg">
-                        В избранное
-                    </a>
+                    {% if is_favorite %}
+                        <a href="{% url 'remove_from_favorites' cookie.id %}" 
+                           class="btn btn-warning btn-lg">
+                            Удалить из избранного
+                        </a>
+                    {% else %}
+                        <a href="{% url 'add_to_favorites' cookie.id %}?prediction_id={{ prediction.id }}" 
+                           class="btn btn-outline-danger btn-lg">
+                            В избранное
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

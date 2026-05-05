@@ -50,9 +50,9 @@
                 <a class="navbar-brand" href="{% url 'home' %}">Печеньки с предсказаниями</a>
                 <div class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <span class="nav-link">Привет, {{ user.username }}!</span>
                         <a class="nav-link" href="{% url 'my_predictions' %}">Мои предсказания</a>
                         <a class="nav-link" href="{% url 'favorites' %}">Избранное</a>
+                        <a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
 
                         <form action="{% url 'logout' %}" method="post" style="display: inline;">
                             {% csrf_token %}
