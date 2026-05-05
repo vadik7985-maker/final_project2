@@ -153,3 +153,11 @@ def edit_profile(request):
         'user_profile': user_profile,
     }
     return render(request, 'edit_profile.html', context)
+
+
+def top_cookies(request):
+    top_list = FortuneCookie.objects.filter(is_active=True).order_by('-usage_count')[:10]
+    context = {
+        'top_cookies': top_list,
+    }
+    return render(request, 'predictions/top_cookies.html', context)

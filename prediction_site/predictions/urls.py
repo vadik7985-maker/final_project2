@@ -13,4 +13,5 @@ urlpatterns = [
 
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('top/', views.top_cookies, name='top_cookies'),
 ]
