@@ -160,4 +160,4 @@ def top_cookies(request):
     context = {
         'top_cookies': top_list,
     }
-    return render(request, 'predictions/top_cookies.html', context)
+    return render(request, 'top_cookies.html', context)
