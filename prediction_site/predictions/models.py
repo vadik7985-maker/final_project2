@@ -56,12 +56,15 @@ class UserProfile(models.Model):
     )
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
 
+    avatar = models.ImageField(
+        upload_to='avatars/',
+        null=True,
+        blank=True,
+        verbose_name="Аватар"
+    )
+
     def __str__(self):
         return f"Профиль {self.user.username}"
-
-    class Meta:
-        verbose_name = "Профиль пользователя"
-        verbose_name_plural = "Профили пользователей"
 
 class UserPrediction(models.Model):
     user = models.ForeignKey(
