@@ -48,9 +48,16 @@ def prediction_result(request, prediction_id):
         user=request.user
     )
     
+    # Проверяем, есть ли предсказание в избранном
+    is_favorite = FavoriteCookie.objects.filter(
+        user=request.user, 
+        cookie=user_prediction.cookie
+    ).exists()
+    
     context = {
         'prediction': user_prediction,
         'cookie': user_prediction.cookie,
+        'is_favorite': is_favorite,
     }
     
     return render(request, 'result.html', context)
@@ -73,6 +80,7 @@ def my_predictions(request):
 @login_required
 def add_to_favorites(request, cookie_id):
     cookie = get_object_or_404(FortuneCookie, id=cookie_id)
+    prediction_id = request.GET.get('prediction_id')
 
     favorite, created = FavoriteCookie.objects.get_or_create(
         user=request.user,
@@ -80,11 +88,13 @@ def add_to_favorites(request, cookie_id):
     )
 
     if created:
-        messages.success(request, f'Предсказание добавлено в избранное ❤️')
+        messages.success(request, 'Предсказание добавлено в избранное')
     else:
         messages.info(request, 'Это предсказание уже в избранном')
 
-    return redirect('prediction_result', prediction_id=request.GET.get('prediction_id'))
+    if prediction_id:
+        return redirect('prediction_result', prediction_id=prediction_id)
+    return redirect('favorites')
 
 
 @login_required
@@ -98,18 +108,6 @@ def remove_from_favorites(request, cookie_id):
 
 @login_required
 def favorites(request):
-    favorite_cookies = FavoriteCookie.objects.filter(
-        user=request.user
-    ).select_related('cookie').order_by('-added_at')
-
-    context = {
-        'favorite_cookies': favorite_cookies,
-    }
-    return render(request, 'predictions/favorites.html', context)
-
-
-@login_required
-def favorites(request):
     favorite_list = FavoriteCookie.objects.filter(
         user=request.user
     ).select_related('cookie', 'cookie__category').order_by('-added_at')
@@ -117,7 +115,7 @@ def favorites(request):
     context = {
         'favorite_list': favorite_list,
     }
-    return render(request, 'predictions/favorites.html', context)
+    return render(request, 'favorites.html', context)
 
 
 @login_required
@@ -133,4 +131,4 @@ def profile(request):
         'favorites_count': favorites_count,
         'total_cookies': FortuneCookie.objects.count(),
     }
-    return render(request, 'predictions/profile.html', context)
+    return render(request, 'profile.html', context)

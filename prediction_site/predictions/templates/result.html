@@ -1,32 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Ваше предсказание{% endblock %}
+{% block title %}Результат предсказания{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow">
-            <div class="card-header bg-warning text-dark text-center">
-                <h2>Ваше предсказание</h2>
-            </div>
-            <div class="card-body text-center">
-                <div class="alert alert-info p-4">
-                    <h3 class="mb-0">{{ cookie.text }}</h3>
-                </div>
+            <div class="card-body text-center p-5">
+                <h3 class="mb-4">Ваше предсказание</h3>
                 
+                <p class="fs-5 prediction-text">
+                    "{{ cookie.text }}"
+                </p>
+                
+                <p class="text-muted">
+                    Категория: <strong>{{ cookie.category.name }}</strong>
+                </p>
+
                 <div class="mt-4">
-                    <p class="text-muted">
-                        Категория: <strong>{{ cookie.category.name }}</strong><br>
-                        Получено: {{ prediction.received_at|date:"d.m.Y H:i" }}
-                    </p>
-                </div>
-                
-                <div class="mt-4 d-flex justify-content-center gap-3">
-                    <a href="{% url 'get_prediction' %}" class="btn btn-primary btn-lg">
-                        Новое предсказание
+                    <a href="{% url 'get_prediction' %}" class="btn btn-primary btn-lg me-3">
+                        Получить ещё одно предсказание
                     </a>
-                    <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
-                        На главную
+
+                    <a href="{% url 'add_to_favorites' cookie.id %}?prediction_id={{ prediction.id }}" 
+                       class="btn btn-outline-danger btn-lg">
+                        В избранное
                     </a>
                 </div>
             </div>
