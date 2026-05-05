@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, FortuneCookie, UserProfile, UserPrediction, FavoriteCookie
+from .models import Category, FortuneCookie, UserProfile, UserPrediction, FavoriteCookie, Achievement, UserAchievement
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -29,3 +29,17 @@ class UserPredictionAdmin(admin.ModelAdmin):
 class FavoriteCookieAdmin(admin.ModelAdmin):
     list_display = ('user', 'cookie', 'added_at')
     list_filter = ('added_at',)
+
+
+@admin.register(Achievement)
+class AchievementAdmin(admin.ModelAdmin):
+    list_display = ('icon', 'name', 'required_predictions', 'required_favorites', 'required_category_count', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name',)
+    list_editable = ('required_predictions', 'required_favorites', 'required_category_count', 'is_active')
+
+@admin.register(UserAchievement)
+class UserAchievementAdmin(admin.ModelAdmin):
+    list_display = ('user', 'achievement', 'earned_at')
+    list_filter = ('achievement', 'earned_at')
+    search_fields = ('user__username',)
