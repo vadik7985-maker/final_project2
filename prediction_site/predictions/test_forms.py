@@ -1,7 +1,9 @@
 # Проверяем регистрацию и валидацию пользователей
 import pytest
-from users.forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
+from predictions.forms import UserProfileForm
+from predictions.models import Category, UserProfile
+from users.forms import CustomUserCreationForm
 
 User = get_user_model()
 
@@ -140,3 +142,23 @@ class TestCustomUserCreationForm:
         assert User.objects.filter(username='brandnewuser').exists() == True
         assert user.email == 'brandnew@example.com'
 
+
+# ТЕСТЫ ВАЛИДАЦИИ ВОЗРАСТА (13-120 лет)
+
+@pytest.mark.django_db
+class TestAgeValidation:
+
+    def test_age_too_young_is_rejected(self, user):
+        """Ребёнок младше 13 лет не может зарегистрироваться"""
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        form = UserProfileForm(data={'birth_date': '2015-05-06'}, instance=profile)
+
+        assert form.is_valid() == False
+        assert 'birth_date' in form.errors
+
+    def test_age_ok_is_accepted(self, user):
+        """Пользователь от 13 до 120 лет проходит валидацию"""
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        form = UserProfileForm(data={'birth_date': '2000-05-06'}, instance=profile)
+
+        assert form.is_valid() == True
