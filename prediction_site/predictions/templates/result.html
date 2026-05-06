@@ -24,7 +24,7 @@
 
                     {% if is_favorite %}
                         <a href="{% url 'remove_from_favorites' cookie.id %}" 
-                           class="btn btn-warning btn-lg">
+                           class="btn btn-outline-danger btn-lg">
                             Удалить из избранного
                         </a>
                     {% else %}
