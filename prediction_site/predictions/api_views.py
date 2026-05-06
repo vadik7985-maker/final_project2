@@ -1,6 +1,18 @@
 from django.http import JsonResponse
-from .models import FortuneCookie, Category
 import random
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required  # требует, чтобы пользователь был авторизован
+from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie
+from .serializers import (
+    CategorySerializer,
+    FortuneCookieSerializer,
+    UserPredictionSerializer,
+    FavoriteCookieSerializer
+)
+
 
 def api_random_cookie(request):
     """Отдаёт случайное активное предсказание в JSON"""
@@ -17,6 +29,7 @@ def api_random_cookie(request):
     }
     return JsonResponse(data)
 
+
 def api_categories(request):
     """Возвращает список всех категорий"""
     categories = Category.objects.all().values('id', 'name', 'description')
@@ -25,26 +38,12 @@ def api_categories(request):
 
 # DRF API VIEWS
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie
-from .serializers import (
-    CategorySerializer,
-    FortuneCookieSerializer,
-    UserPredictionSerializer,
-    FavoriteCookieSerializer
-)
-
-
-@api_view(['GET'])
-def drf_categories(request):
+@api_view(['GET'])  # список разрешённых методов
+def drf_categories(request):  # request – объект запроса (содержит данные от клиента)
     """API: список всех категорий"""
     categories = Category.objects.all()
-    serializer = CategorySerializer(categories, many=True)
-    return Response(serializer.data)
+    serializer = CategorySerializer(categories, many=True)  # У нас много объектов, а не один
+    return Response(serializer.data)  # превратил объекты в словарь/список, готовый для JSON
 
 
 @api_view(['GET'])
@@ -66,9 +65,11 @@ def drf_random_cookie(request):
 
 @api_view(['GET', 'POST'])
 @login_required
+# Только для авторизованных пользователей
 def drf_my_predictions(request):
     """API: мои полученные предсказания"""
     if request.method == 'GET':
+        # Только предсказания текущего пользователя. Сортируем по дате получения, сначала новые
         predictions = UserPrediction.objects.filter(user=request.user).order_by('-received_at')
         serializer = UserPredictionSerializer(predictions, many=True)
         return Response(serializer.data)
@@ -76,7 +77,9 @@ def drf_my_predictions(request):
     elif request.method == 'POST':
         # Получить новое предсказание
         active_cookies = FortuneCookie.objects.filter(is_active=True)
+        # Список ID предсказаний, которые пользователь УЖЕ получил
         received_ids = UserPrediction.objects.filter(user=request.user).values_list('cookie_id', flat=True)
+        # Активные предсказания МИНУС уже полученные
         available = active_cookies.exclude(id__in=received_ids)
 
         if not available.exists():
@@ -105,7 +108,7 @@ def drf_my_favorites(request):
 @login_required
 def drf_favorite_toggle(request, cookie_id):
     """API: добавить/удалить из избранного"""
-    cookie = get_object_or_404(FortuneCookie, id=cookie_id)
+    cookie = get_object_or_404(FortuneCookie, id=cookie_id)  # Находим предсказание по ID. Если нет – ошибка 404
     favorite = FavoriteCookie.objects.filter(user=request.user, cookie=cookie)
 
     if request.method == 'POST':

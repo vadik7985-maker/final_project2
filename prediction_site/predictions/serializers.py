@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'description']  # Список полей, которые будут включены в JSON
 
 
 class FortuneCookieSerializer(serializers.ModelSerializer):
