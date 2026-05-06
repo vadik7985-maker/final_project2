@@ -4,6 +4,9 @@ from django.contrib import messages
 from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, UserProfile, Achievement, UserAchievement
 import random
 from .forms import UserProfileForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -22,9 +25,13 @@ def home(request):
 
 @login_required
 def get_prediction(request):
+    # Информационное сообщение: кто запросил предсказание
+    logger.info(f"Пользователь {request.user.username} запросил предсказание")
+
     active_cookies = FortuneCookie.objects.filter(is_active=True)
 
     if not active_cookies.exists():
+        logger.warning("Активных предсказаний нет!")
         messages.warning(request, 'К сожалению, активных предсказаний пока нет. Загляните позже!')
         return redirect('home')
 
@@ -38,6 +45,7 @@ def get_prediction(request):
 
     # Если все предсказания уже получены
     if not available_cookies.exists():
+        logger.info(f"Пользователь {request.user.username} уже получил все предсказания")
         messages.warning(request, 'Вы уже получили все возможные предсказания! 🎉')
         return redirect('my_predictions')
 
@@ -46,15 +54,21 @@ def get_prediction(request):
     cookie.usage_count += 1
     cookie.save()
 
+    # Отладочное сообщение: какое предсказание выбрано (видно только при уровне DEBUG)
+    logger.debug(f"Выдано предсказание id={cookie.id}, текст={cookie.text[:30]}...")
+
     user_prediction = UserPrediction.objects.create(
         user=request.user,
         cookie=cookie
     )
 
+    logger.info(f"Предсказание сохранено, id={user_prediction.id}")
+
     # Проверяем и выдаём достижения
     new_achievements = check_and_award_achievements(request.user)
     if new_achievements:
         for ach in new_achievements:
+            logger.info(f"Пользователь {request.user.username} получил достижение: {ach.icon} {ach.name}")
             messages.success(request, f'Получено достижение: {ach.icon} {ach.name}!')
 
     return redirect('prediction_result', prediction_id=user_prediction.id)

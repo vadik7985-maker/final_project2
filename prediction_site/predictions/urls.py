@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
+from . import api_views
 
 urlpatterns = [
-    path('', views.home, name='home'),          
+    path('', views.home, name='home'),
     path('get/', views.get_prediction, name='get_prediction'),
     path('result/<int:prediction_id>/', views.prediction_result, name='prediction_result'),
     path('my-predictions/', views.my_predictions, name='my_predictions'),
@@ -14,4 +15,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('top/', views.top_cookies, name='top_cookies'),
+
+    # API-маршруты
+    path('api/random/', api_views.api_random_cookie, name='api_random_cookie'),
+    path('api/categories/', api_views.api_categories, name='api_categories'),
 ]

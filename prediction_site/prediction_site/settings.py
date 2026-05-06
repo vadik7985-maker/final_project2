@@ -134,3 +134,85 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 # аватарки
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            # Формат как в презентации: время, имя логгера, уровень, сообщение
+            'format': '{asctime} - {name} - {levelname} - {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        # Вывод логов прямо в терминал (StreamHandler)
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        # Запись логов в файл с ротацией (RotatingFileHandler)
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'maxBytes': 1024 * 1024 * 5,   # 5 мегабайт
+            'backupCount': 5,              # хранить 5 старых файлов
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        # Логгер для твоего приложения predictions
+        'predictions': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',       # будешь видеть INFO, WARNING, ERROR
+            'propagate': True,
+        },
+    },
+}
+
+import os
+
+# Автоматически создаём папку logs, чтобы не было ошибки "No such file or directory"
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} - {name} - {levelname} - {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'maxBytes': 1024 * 1024 * 5,   # 5 MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+            'encoding': 'utf8',            # ← чтобы русский текст не превращался в знаки вопроса
+        },
+    },
+    'loggers': {
+        'predictions': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
