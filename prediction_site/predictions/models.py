@@ -73,6 +73,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"Профиль {self.user.username}" #объект превр в строку
 
+    class Meta:
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
+
 class UserPrediction(models.Model):
     user = models.ForeignKey( # предсказ с конкр польз
         'users.CustomUser',
