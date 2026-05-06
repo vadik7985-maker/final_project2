@@ -1,5 +1,5 @@
 import pytest
-from django.urls import reverse
+from django.urls import reverse  # Превращает имя маршрута в URL-адрес
 from predictions.models import FortuneCookie, Category
 
 
@@ -13,7 +13,7 @@ class TestRandomCookieAPI:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.json()['text'] == cookie.text
+        assert response.json()['text'] == cookie.text  # Превращает JSON-ответ в словарь Python
         assert response.json()['category'] == cookie.category.name
 
     def test_api_random_cookie_no_cookies(self, client):
@@ -23,6 +23,7 @@ class TestRandomCookieAPI:
         response = client.get(url)
 
         assert response.status_code == 404
+        # Проверяет что в JSON-ответе есть ключ 'error' с правильным текстом ошибки
         assert response.json()['error'] == 'Нет активных предсказаний'
 
 
@@ -31,13 +32,13 @@ class TestRandomCookieAPI:
 @pytest.mark.django_db
 class TestCategoriesAPI:
 
-    def test_api_categories_returns_list(self, client, category):
+    def test_api_categories_returns_list(self, client, category):  # фикстура, создающая тестовую категорию "Любовь"
         """API возвращает список категорий"""
         url = reverse('api_categories')
         response = client.get(url)
 
         assert response.status_code == 200
-        assert len(response.json()) == 1
+        assert len(response.json()) == 1  # список с одной категорией
         assert response.json()[0]['name'] == 'Любовь'
 
     def test_api_categories_multiple(self, client):

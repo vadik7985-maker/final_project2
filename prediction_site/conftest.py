@@ -58,5 +58,5 @@ def user_profile(user):
 @pytest.fixture
 def auth_client(client, user):  # имитация браузера
     """Фикстура: возвращает авторизованного клиента (уже залогинен)"""
-    client.force_login(user)
+    client.force_login(user)  # принудительно логиним пользователя
     return client

@@ -1,5 +1,5 @@
 import pytest
-from django.db import IntegrityError
+from django.db import IntegrityError  # Ошибка целостности БД (нарушение уникальности)
 from predictions.models import Category, FortuneCookie, UserProfile, UserPrediction, FavoriteCookie, Achievement, UserAchievement
 from django.contrib.auth import get_user_model
 
@@ -30,7 +30,7 @@ class TestCategory:
         Тест русских названий полей (verbose_name)
         Проверяет: в админке поля подписаны правильно
         """
-        name_field = Category._meta.get_field('name')
+        name_field = Category._meta.get_field('name')  # способ получить информацию о поле модели
         description_field = Category._meta.get_field('description')
 
         assert name_field.verbose_name == 'Название'
@@ -49,7 +49,7 @@ class TestFortuneCookie:
         assert cookie.text == 'Вас ждёт прекрасный день!'
         assert cookie.category == category
         assert cookie.is_active == True
-        assert cookie.usage_count == 0  # по умолчанию ноль
+        assert cookie.usage_count == 0  # Счётчик использований начинается с 0
 
     def test_cookie_str_short_text(self, category):
         """

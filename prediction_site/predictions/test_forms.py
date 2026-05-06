@@ -23,7 +23,7 @@ class TestCustomUserCreationForm:
             'password1': 'ComplexPass123!',
             'password2': 'ComplexPass123!',  # пароль повторён правильно
         }
-        form = CustomUserCreationForm(data=form_data)
+        form = CustomUserCreationForm(data=form_data)  # Создаём экземпляр формы, передавая в неё данные
 
         # Форма должна быть валидной
         assert form.is_valid() == True
@@ -96,7 +96,7 @@ class TestCustomUserCreationForm:
         }
         form = CustomUserCreationForm(data=form_data)
 
-        # Форма должна быть НЕвалидной
+        # Форма должна быть НЕ валидной
         assert form.is_valid() == False
         # В ошибках должно быть поле email
         assert 'email' in form.errors
@@ -114,7 +114,7 @@ class TestCustomUserCreationForm:
         }
         form = CustomUserCreationForm(data=form_data)
 
-        # Форма должна быть НЕвалидной
+        # Форма должна быть НЕ валидной
         assert form.is_valid() == False
         # В ошибках должно быть поле password2 (или password1)
         assert 'password2' in form.errors or 'password1' in form.errors

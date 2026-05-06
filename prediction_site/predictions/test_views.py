@@ -1,6 +1,5 @@
 import pytest
-from django.urls import reverse
-from predictions.models import FortuneCookie, UserPrediction
+from django.urls import reverse  # Превращает имя маршрута в URL-адрес
 
 
 @pytest.mark.django_db
@@ -22,7 +21,7 @@ class TestGetPredictionView:
         """Аноним перенаправляется на страницу логина"""
         url = reverse('get_prediction')
         response = client.get(url)
-        assert response.status_code == 302  # редирект
+        assert response.status_code == 302  # редирект т.к в settings.py: LOGIN_URL = '/auth/login/'
 
 
 @pytest.mark.django_db
