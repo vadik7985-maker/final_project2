@@ -1,6 +1,19 @@
 from django.http import JsonResponse
 from .models import FortuneCookie, Category
 import random
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie
+from .serializers import (
+    CategorySerializer,
+    FortuneCookieSerializer,
+    UserPredictionSerializer,
+    FavoriteCookieSerializer
+)
+
 
 def api_random_cookie(request):
     """Отдаёт случайное активное предсказание в JSON"""
@@ -25,20 +38,6 @@ def api_categories(request):
 
 # DRF API VIEWS
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie
-from .serializers import (
-    CategorySerializer,
-    FortuneCookieSerializer,
-    UserPredictionSerializer,
-    FavoriteCookieSerializer
-)
-
-
 @api_view(['GET'])
 def drf_categories(request):
     """API: список всех категорий"""
@@ -58,7 +57,7 @@ def drf_random_cookie(request):
             status=status.HTTP_404_NOT_FOUND
         )
 
-    import random
+
     cookie = random.choice(active_cookies)
     serializer = FortuneCookieSerializer(cookie)
     return Response(serializer.data)
@@ -85,7 +84,7 @@ def drf_my_predictions(request):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        import random
+       
         cookie = random.choice(available)
         prediction = UserPrediction.objects.create(user=request.user, cookie=cookie)
         serializer = UserPredictionSerializer(prediction)
