@@ -19,4 +19,11 @@ urlpatterns = [
     # API-маршруты
     path('api/random/', api_views.api_random_cookie, name='api_random_cookie'),
     path('api/categories/', api_views.api_categories, name='api_categories'),
+
+    # DRF API маршруты
+    path('api/drf/categories/', api_views.drf_categories, name='drf_categories'),
+    path('api/drf/random/', api_views.drf_random_cookie, name='drf_random'),
+    path('api/drf/my-predictions/', api_views.drf_my_predictions, name='drf_my_predictions'),
+    path('api/drf/my-favorites/', api_views.drf_my_favorites, name='drf_my_favorites'),
+    path('api/drf/favorite/<int:cookie_id>/', api_views.drf_favorite_toggle, name='drf_favorite_toggle'),
 ]
