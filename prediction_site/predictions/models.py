@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
@@ -31,6 +31,13 @@ class FortuneCookie(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активно")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     usage_count = models.PositiveIntegerField(default=0, verbose_name="Количество использований")
+
+    def clean(self): # не может быть пустым или коротким
+        if not self.text or not self.text.strip():
+            raise ValidationError({'text': 'Текст предсказания не может быть пустым'})
+
+        if len(self.text.strip()) < 5:
+            raise ValidationError({'text': 'Предсказание должно содержать минимум 5 символов'})
 
     def __str__(self):
         return self.text[:50] + "..." if len(self.text) > 50 else self.text

@@ -116,8 +116,16 @@ def add_to_favorites(request, cookie_id):
     cookie = get_object_or_404(FortuneCookie, id=cookie_id)
     prediction_id = request.GET.get('prediction_id')
 
+    favorites_count = FavoriteCookie.objects.filter(user=request.user).count()
+
+    if favorites_count >= 50: #нельзя больше 50 добавить в избр
+        messages.error(request, 'Нельзя добавить больше 50 предсказаний в избранное!')
+        if prediction_id:
+            return redirect('prediction_result', prediction_id=prediction_id)
+        return redirect('favorites')
+
     favorite, created = FavoriteCookie.objects.get_or_create(
-        user=request.user, # объект модели
+        user=request.user,
         cookie=cookie
     )
 
