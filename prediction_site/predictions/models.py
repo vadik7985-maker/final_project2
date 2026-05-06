@@ -17,7 +17,7 @@ class FortuneCookie(models.Model):
     text = models.TextField(verbose_name="Текст предсказания")
     category = models.ForeignKey(
         'Category',
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE, #удалятся все
         related_name='cookies',
         verbose_name="Категория"
     )
@@ -64,15 +64,15 @@ class UserProfile(models.Model):
     )
 
     def __str__(self):
-        return f"Профиль {self.user.username}"
+        return f"Профиль {self.user.username}" #объект превр в строку
 
 class UserPrediction(models.Model):
-    user = models.ForeignKey(
+    user = models.ForeignKey( # предсказ с конкр польз
         'users.CustomUser',
         on_delete=models.CASCADE,
         verbose_name="Пользователь"
     )
-    cookie = models.ForeignKey(
+    cookie = models.ForeignKey( #с конкр предсказ
         FortuneCookie,
         on_delete=models.CASCADE,
         verbose_name="Предсказание"
@@ -81,13 +81,12 @@ class UserPrediction(models.Model):
     is_favorite = models.BooleanField(default=False, verbose_name="В избранном")
 
     class Meta:
-        unique_together = ['user', 'cookie']
+        unique_together = ['user', 'cookie'] #нельзя получить дважды
         verbose_name = "Полученное предсказание"
         verbose_name_plural = "Полученные предсказания"
 
     def __str__(self):
         return f"{self.user.username} - {self.cookie.text[:30]}..."
-
 
 
 class FavoriteCookie(models.Model):

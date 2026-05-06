@@ -1,15 +1,15 @@
 from django.contrib import admin
 from .models import Category, FortuneCookie, UserProfile, UserPrediction, FavoriteCookie, Achievement, UserAchievement
 
-@admin.register(Category)
+@admin.register(Category) #дек для отобр админки
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
-    search_fields = ('name',)
+    list_display = ('name', 'description') # поля в списке записей
+    search_fields = ('name',) # искать по
 
 @admin.register(FortuneCookie)
 class FortuneCookieAdmin(admin.ModelAdmin):
     list_display = ('text', 'category', 'is_active', 'usage_count', 'created_at')
-    list_filter = ('category', 'is_active')
+    list_filter = ('category', 'is_active') # бок панель
     search_fields = ('text',)
 
 
@@ -20,7 +20,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(UserPrediction)
-class UserPredictionAdmin(admin.ModelAdmin):
+class UserPredictionAdmin(admin.ModelAdmin): #какое предс у кого
     list_display = ('user', 'cookie', 'received_at', 'is_favorite')
     list_filter = ('is_favorite', 'received_at')
 

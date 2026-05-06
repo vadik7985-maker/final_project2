@@ -5,7 +5,7 @@ from .forms import CustomUserCreationForm
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST) #созд объект формы
         if form.is_valid():
             user = form.save()
             login(request, user)

@@ -111,13 +111,13 @@ def my_predictions(request):
     return render(request, 'my_predictions.html', context)
 
 
-@login_required
+@login_required #авторизован ли
 def add_to_favorites(request, cookie_id):
     cookie = get_object_or_404(FortuneCookie, id=cookie_id)
     prediction_id = request.GET.get('prediction_id')
 
     favorite, created = FavoriteCookie.objects.get_or_create(
-        user=request.user,
+        user=request.user, # объект модели
         cookie=cookie
     )
 
@@ -154,7 +154,7 @@ def favorites(request):
 
 @login_required
 def profile(request):
-    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user) #либо созд новую, либо находим сущ
 
     predictions_count = UserPrediction.objects.filter(user=request.user).count()
     favorites_count = FavoriteCookie.objects.filter(user=request.user).count()
