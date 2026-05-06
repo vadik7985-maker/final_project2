@@ -5,6 +5,7 @@ from .models import Category, FortuneCookie, UserPrediction, FavoriteCookie, Use
 import random
 from .forms import UserProfileForm
 import logging
+from django.core.exceptions import PermissionDenied
 
 logger = logging.getLogger(__name__)
 
@@ -200,6 +201,9 @@ def edit_profile(request):
 
 
 def top_cookies(request):
+    if not request.user.is_staff:
+        raise PermissionDenied("Доступ только для администраторов")
+
     top_list = FortuneCookie.objects.filter(is_active=True).order_by('-usage_count')[:10]
     context = {
         'top_cookies': top_list,
