@@ -18,7 +18,7 @@
                     <div class="prediction-meta">
                         <span class="date">Получено: {{ prediction.received_at|date:"d.m.Y H:i" }}</span>
                         <span class="category">Категория: {{ prediction.cookie.category.name }}</span>
-                        <a href="{% url 'prediction_result' prediction.id %}" class="btn btn-outline-primary btn-sm">
+                        <a href="{% url 'prediction_result' prediction.id %}" class="btn btn-outline-danger btn-lg">
                             Посмотреть
                         </a>
                     </div>
