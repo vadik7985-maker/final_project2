@@ -43,19 +43,20 @@ def cookie(category):
     return FortuneCookie.objects.create(
         text='Вас ждёт прекрасный день!',
         category=category,
-        is_active=True
+        is_active=True  # активное, пользователи могут его получить
     )
 
 
 @pytest.fixture
 def user_profile(user):
     """Фикстура: создаёт профиль пользователя (связь 1:1)"""
-    profile, created = UserProfile.objects.get_or_create(user=user)
+    profile, created = UserProfile.objects.get_or_create(user=user)  # ищет профиль пользователя, если его нет создает
+    # True – если объект был создан сейчас, False – если найдён существующий
     return profile
 
 
 @pytest.fixture
-def auth_client(client, user):
+def auth_client(client, user):  # имитация браузера
     """Фикстура: возвращает авторизованного клиента (уже залогинен)"""
     client.force_login(user)
     return client
